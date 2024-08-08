@@ -1,11 +1,10 @@
 #include <iostream> // Подключение библиотеки для ввода/вывода
-#include <chrono>   // Подключение библиотеки для работы с временем
-#include <thread>   // Подключение библиотеки для работы с потоками
 #include <string>   // Подключение библиотеки для работы со строками
 #include <cstdlib>  // Подключение библиотеки для генерации случайных чисел
 #include <vector>   // Подключение библиотеки для работы с векторами
 #include <cmath>    // Подключение библиотеки для математических операций
 #include <limits>   // Подключение библиотеки для работы с пределами чисел
+#include "Header.h"
 
 using namespace std;
 
@@ -125,6 +124,7 @@ private:
     // функция определения типа гриба и добавляет его в соответствующий отсек.
     void pickMushroom(const string& type) {
         cout << "Это " << type << " гриб" << endl;
+        slp(sleepDuration);
         if (type == "съедобный" && bagEdible < maxBagCapacity) {
             cout << "Помещаю в отсек для съедобных грибов" << endl;
             bagEdible++;
@@ -139,6 +139,7 @@ private:
         else {
             cout << "Отсек переполнен" << endl;
         }
+        slp(sleepDuration);
     }
 
     // функция движения робота
@@ -174,6 +175,7 @@ private:
         }
         forest.grid[x][y] = botSymbol;
         forest.display(x, y, bagEdible, bagHallucinogenic);
+        slp(sleepDuration);
     }
 
     // функция возвращения домой (начальная координата)
@@ -264,7 +266,7 @@ int main() {
             cout << "Батарея села" << endl;
             break;
         }
-        this_thread::sleep_for(chrono::seconds(sleepDuration));
+        slp(sleepDuration);
         robot.updateBatteryTime(sleepDuration);
     }
 
